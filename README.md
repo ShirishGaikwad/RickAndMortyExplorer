@@ -1,3 +1,5 @@
+
+
 # Rick and Morty Explorer App
 
 This project is a Swift + SwiftUI application that allows users to explore characters, locations, and episodes from the Rick and Morty universe using the [Rick and Morty API](https://rickandmortyapi.com/).
@@ -91,6 +93,17 @@ Before running the project, ensure the following tools are installed on your mac
 - **Locations**: `https://rickandmortyapi.com/api/location`
 - **Episodes**: `https://rickandmortyapi.com/api/episode`
 
+## Continuous Integration (CI) Status
+
+### CI Build Failure Reason
+The CI process is currently failing due to the following reasons:
+
+1. **Unavailable iOS Simulators**:
+   The required iOS simulator devices are not available on the system. The CI workflow specifies devices and OS versions that are not installed or accessible in the current setup.
+
+2. **No Paid Apple Developer Account**:
+   The project requires a paid Apple Developer account to configure code signing and provisioning profiles for successful builds. Currently, no paid account is linked to this project.
+
 ## Notes
 
 - **Dependencies**: The project does not use external libraries or package managers. All functionality is built-in using Swift and SwiftUI.
@@ -106,3 +119,6 @@ Before running the project, ensure the following tools are installed on your mac
 
 This project is licensed under the MIT License. Feel free to use and modify the code as needed.
 
+---
+
+Let me know if you need further edits!
