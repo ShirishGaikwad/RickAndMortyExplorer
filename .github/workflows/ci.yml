@@ -13,39 +13,39 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    # Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Clear Derived Data to prevent build issues
-    - name: Clear Derived Data
-      run: rm -rf ~/Library/Developer/Xcode/DerivedData
+      # Step 2: Clear Derived Data (optional but recommended for clean builds)
+      - name: Clear Derived Data
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
-    # Set up Xcode environment
-    - name: Set up Xcode
-      uses: actions/setup-xcode@v3
-      with:
-        xcode-version: '15.0.1' # Use the required Xcode version
+      # Step 3: Set up Xcode environment
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v2
+        with:
+          xcode-version: '15.0.1'
 
-    # Install dependencies (if using CocoaPods or Swift Package Manager)
-    - name: Install dependencies
-      run: |
-        xcodebuild -resolvePackageDependencies
+      # Step 4: Install dependencies (resolve package dependencies)
+      - name: Install dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies
 
-    # Clean and Build the project
-    - name: Clean and Build
-      run: |
-        xcodebuild clean build \
-        -scheme RickAndMortyExplorer \
-        -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-        CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
+      # Step 5: Clean and Build the project
+      - name: Clean and Build
+        run: |
+          xcodebuild clean build \
+          -scheme RickAndMortyExplorer \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
 
-    # Run tests (if available)
-    - name: Run Tests
-      run: |
-        xcodebuild test \
-        -scheme RickAndMortyExplorer \
-        -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-        CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
+      # Step 6: Run tests
+      - name: Run Tests
+        run: |
+          xcodebuild test \
+          -scheme RickAndMortyExplorer \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
