@@ -19,29 +19,27 @@ jobs:
 
     # Set up Xcode environment
     - name: Set up Xcode
-      uses: maxim-lobanov/setup-xcode@v2
+      uses: actions/setup-xcode@v2
       with:
-        xcode-version: '15.0' # Update to match your Xcode version
+        xcode-version: '14.0' # Update to match your Xcode version
 
     # Install dependencies (if using CocoaPods or Swift Package Manager)
-    # - name: Install dependencies
-     # run: |
-      #  xcodebuild -resolvePackageDependencies
+    - name: Install dependencies
+      run: |
+        xcodebuild -resolvePackageDependencies
 
-    # Clean and build the project
+    # Clean and Build the project
     - name: Clean and Build
       run: |
         xcodebuild clean build \
-        -workspace RickAndMortyExplorer.xcodeproj \
         -scheme RickAndMortyExplorer \
         -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest'
+        -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest'
 
     # Run tests (if available)
     - name: Run tests
       run: |
         xcodebuild test \
-        -workspace RickAndMortyExplorer.xcodeproj \
         -scheme RickAndMortyExplorer \
         -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest'
+        -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest'
