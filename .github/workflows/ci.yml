@@ -13,35 +13,35 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    # Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Set up Xcode environment
-    - name: Set up Xcode
-      uses: actions/setup-xcode@v2
-      with:
-        xcode-version: '14.0' # Update to match your Xcode version
+      # Set up Xcode environment
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v2
+        with:
+          xcode-version: '14.0' # Update to match your Xcode version
 
-    # Install dependencies (if using CocoaPods or Swift Package Manager)
-    - name: Install dependencies
-      run: |
-        xcodebuild -resolvePackageDependencies
+      # Resolve Swift Package Manager dependencies
+      - name: Resolve dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies
 
-    # Clean and Build the project
-    - name: Clean and Build
-      run: |
-        xcodebuild clean build \
-        -scheme RickAndMortyExplorer \
-        -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest'
+      # Clean and Build the project
+      - name: Clean and Build
+        run: |
+          xcodebuild clean build \
+          -scheme RickAndMortyExplorer \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
 
-    # Run tests (if available)
-    - name: Run tests
-      run: |
-        xcodebuild test \
-        -scheme RickAndMortyExplorer \
-        -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \ 
-         CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
-
+      # Run tests (if available)
+      - name: Run Tests
+        run: |
+          xcodebuild test \
+          -scheme RickAndMortyExplorer \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
