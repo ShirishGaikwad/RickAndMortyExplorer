@@ -11,41 +11,36 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Clear Derived Data (optional but recommended for clean builds)
-      - name: Clear Derived Data
-        run: rm -rf ~/Library/Developer/Xcode/DerivedData
-
-      # Step 3: Set up Xcode environment
+      # Step 2: Set up Xcode environment
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v2
         with:
-          xcode-version: '15.0.1'
+          xcode-version: latest-stable
 
-      # Step 4: Install dependencies (resolve package dependencies)
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           xcodebuild -resolvePackageDependencies
 
-      # Step 5: Clean and Build the project
+      # Step 4: Clean and Build the project
       - name: Clean and Build
         run: |
           xcodebuild clean build \
-          -scheme RickAndMortyExplorer \
+          -scheme YourSchemeName \
           -sdk iphonesimulator \
           -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
 
-      # Step 6: Run tests
+      # Step 5: Run tests
       - name: Run Tests
         run: |
           xcodebuild test \
-          -scheme RickAndMortyExplorer \
+          -scheme YourSchemeName \
           -sdk iphonesimulator \
           -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS=""
